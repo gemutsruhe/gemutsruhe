@@ -1,114 +1,125 @@
 #include <stdio.h>
 #include <malloc.h>
 
-typedef struct birth
+typedef struct node
 {
-	int year;
-	int month;
-	int date;
-}birth;
-
-typedef struct private_statement
-{
-	char name[8];
-	birth birth_data;
-	char gender[8];
-	int phone_number;
-}p_s;
-
-void swap_int(int *data1, int *data2)
-{
-	int temp = *data1;
-	*data1 = *data2;
-	*data2 = temp;
-}
-
-void swap_p_p_s(p_s **data1, p_s **data2)
-{
-	p_s *temp = *data1;
-	*data1 = *data2;
-	*data2 = temp; 
-}
-
-void name_priority_sort(p_s **p_p_s, int *birth, int num)
-{
-	int i, j, k;
-	for(i = 0; i < num - 1; i++)
-	{
-		for(j = i + 1; j < num; j++)
-		{
-			k = 0;
-			while(*((char *)*(p_p_s + i) + k) == *((char *)*(p_p_s + j) + k)) k++;
-			if(*((char *)*(p_p_s + i) + k) < *((char *)*(p_p_s + j) + k))
-			{
-				swap_p_p_s(p_p_s + i, p_p_s + j);
-				swap_int(birth + i, birth + j);
-			}
-		}
-	}
-}
-
-void birth_priority_sort(p_s **p_p_s, int *birth, int num)
-{
-	int i, j;
-	for(i = 0; i < num - 1; i++)
-	{
-		for(j = i + 1; j < num; j++)
-		{
-			if(*(birth + i) > *(birth + j))
-			{
-				swap_p_p_s(p_p_s + i, p_p_s + j);
-				swap_int(birth + i, birth + j);
-			}
-			
-		}
-	}
-}
-
-void print_statement(p_s **p_p_s)
-{
-	printf("\t\t%s\t",(char *)*p_p_s);
-	printf("%04d/%02d%/%02d\t", *((int *)*p_p_s + 2),*((int *)*p_p_s + 3), *((int *)*p_p_s + 4));
-	printf("%s\t",(char *)*p_p_s + 20);
-	printf("0%d\t\n",*((int *)*p_p_s + 7));
-}
+	int value;
+	struct node *next;
+}node;
 
 int main()
 {
-	int i, num;
-	printf("입력할 명세서의 개수를 입력하시오 : "); 
-	scanf("%d",&num);
-	p_s **p_p_s = (p_s **)malloc(sizeof(p_s *) * num);
-	int *birth = (int *)malloc(sizeof(int *) * num);
-	p_s **p_p_s_first = p_p_s;
+	int i;
+	int temp_num, input_num = 0, half_input_num;
+	node *p_head, *p_node;
 	
-	for(i = 0; i < num; i++)
+	if(scanf("%d",&temp_num) != EOF)
 	{
-		printf("개별명세 입력%d : ",i + 1);
-		*p_p_s = (p_s *)malloc(sizeof(p_s));
-		
-		scanf(" %s",(char *)*p_p_s);
-		scanf("%d/%d/%d",(int *)*p_p_s + 2, (int *)*p_p_s + 3, (int *)*p_p_s + 4);
-		*(birth + i) = *((int *)*p_p_s + 2) * 10000 + *((int *)*p_p_s + 3) * 100 + *((int *)*p_p_s + 4);
-		scanf(" %s",(char *)*p_p_s + 20);
-		scanf("%d",(int *)*p_p_s + 7);
-		
-		p_p_s++;
+		p_node = (node *)malloc(sizeof(node));
+		p_head = p_node;
+		*(int *)p_node = temp_num;
+	}
+	else return 0;
+	
+	while(scanf("%d",&temp_num) != EOF)
+	{
+		*((node **)p_node + 1) = (node *)malloc(sizeof(node));
+		p_node = *((node **)p_node + 1);
+		*(int *)p_node = temp_num;
+	}
+	*((node **)p_node + 1) = 0;
+	p_node = p_head;
+	
+	printf("입력자료를 입력 순으로 출력\t\t\t");
+	while(*((node **)p_node + 1))
+	{
+		printf("%d ",*(int *)p_node);
+		p_node = *((node **)p_node + 1);
+		input_num++;
+	}
+	printf("%d\n",*(int *)p_node);
+	input_num++;
+	printf("입력된 자료의 개수를 출력\t\t\t%d\n",input_num);
+
+	p_node = p_head;
+	if(input_num % 2)
+	{
+		half_input_num = input_num >> 1;
+		for(i = 0; i < half_input_num; i++)	p_node = *((node **)p_node + 1);
+		printf("입력자료의 중간위치에 있는 자료의 값 출력\t%d\n",*(int *)p_node);
+	}
+	else
+	{
+		half_input_num = input_num >> 1;
+		for(i = 0; i < half_input_num - 1; i++)	p_node = *((node **)p_node + 1);
+		printf("입력자료의 중간위치에 있는 자료의 값 출력\t%d %d\n",*(int *)p_node, *(int *)*((node **)p_node + 1));
 	}
 	
-	printf("\n입력 순 출력\t이름\t생년월일\t성별\t전화번호\n");
-	p_p_s = p_p_s_first;
-	for(i = 0; i < num; i++) print_statement(p_p_s++);
+	printf("입력자료를 입력 역순으로 출력\t\t\t");
+	i = input_num - 1;
+	while(i)
+	{
+		p_node = p_head;
+		int j = i--;
+		while(j--)
+		{
+			p_node = *((node **)p_node + 1);
+		}
+		printf("%d ",*(int *)p_node);
+	}
+	printf("%d\n",*(int *)p_head);
 	
-	printf("\n이름 순 출력\t이름\t생년월일\t성별\t전화번호\n");
-	p_p_s = p_p_s_first;
-	name_priority_sort(p_p_s, birth, num);
-	for(i = 0; i < num; i++) print_statement(p_p_s++);
+	printf("입력자료에서 홀수번째 자료를 모두 삭제\n");
+	p_node = p_head;
+	if(input_num > 1)
+	{
+		p_head = *((node **)p_node + 1);
+		free(p_node);
+		p_node = p_head;
+		if(input_num % 2)
+		{
+			while(*((node**)(*((node **)p_node + 1)) + 1))
+			{
+				node *p_del_node = *((node **)p_node + 1);
+				*((node **)p_node + 1) = *((node**)(*((node **)p_node + 1)) + 1);
+				p_node = *((node **)p_node + 1);
+				free(p_del_node);	
+			}
+		}
+		else
+		{
+			while(*((node **)p_node + 1))
+			{
+				node *p_del_node = *((node **)p_node + 1);
+				*((node **)p_node + 1) = *((node**)(*((node **)p_node + 1)) + 1);
+				p_node = *((node **)p_node + 1);
+				free(p_del_node);
+			}
+		}
+		*((node **)p_node + 1) = 0;
+	}
+	else if(input_num == 1)
+	{
+		free(p_head);
+	}
 	
-	printf("\n생일 순 출력\t이름\t생년월일\t성별\t전화번호\n");
-	p_p_s = p_p_s_first;
-	birth_priority_sort(p_p_s, birth, num);
-	for(i = 0; i < num; i++) print_statement(p_p_s++);
+	
+	printf("남은 자료를 순서대로 출력\t\t\t");
+	p_node = p_head;
+	while(*((node **)p_node + 1))
+	{
+		printf("%d ",*(int *)p_node);
+		p_node = *((node **)p_node + 1);
+	}
+	printf("%d\n",*(int *)p_node);
+	
+	p_node = p_head;
+	while(*((node **)p_node + 1))
+	{
+		p_head = *((node **)p_node + 1);
+		free(p_node);
+		p_node = p_head;
+	}
 	
 	return 0;
 }
