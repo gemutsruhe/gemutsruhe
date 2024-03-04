@@ -1,16 +1,38 @@
-### Hi there 👋
+# Introduce
+------------------------------------------------
 
-<!--
-**gemutsruhe/gemutsruhe** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+# History
+------------------------------------------------
+##### Chung-Ang Univ (2018.03 - 2024.02)
+##### InnopiaTech Intern (2023.07 - 2023.09)
+##### SSAFY(2024.03 ~)
 
-Here are some ideas to get you started:
+# Career
+------------------------------------------------
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+# Tech Stack
+------------------------------------------------
+
+## C++
+   -  Project
+## JAVA
+   -  Project
+## Android( JAVA)
+   -   [Capstone Design - OpenAPI Project](https://github.com/gemutsruhe/DdaReung.git)
+   -   Casptone Design
+        - [Capstone Design - Weight Training App](https://github.com/gemutsruhe/wearableWT.git)
+        -  [Capstone Design - Weight Training Wearable App](https://github.com/gemutsruhe/WearableWTWearOS.git)
+   -  [InnopiaTech Intern](https://github.com/gemutsruhe/rppg-dataset-acquition.git)
+   -  [IoT Project Data Acquition](https://github.com/gemutsruhe/get-android-sensor-data.git)
+   -  [Karaoke Book - Not Done](https://github.com/gemutsruhe/KaraokeBook.git)
+## HTML
+   -  Porject
+## JavaScript
+   -  Project
+   -  
+## Unreal
+  -  [Computer Game Design Project](https://github.com/byy0643/ADVProject.git)
+
+# 프로젝트
+------------------------------------------------
+### DesignPattern
